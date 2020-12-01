@@ -1,3 +1,5 @@
+var output = document.getElementById("output");
+output.style = "display : none";
 
 var form = document.getElementsByClassName('form-inline')[0].addEventListener( 'submit' , (e) => { 
     e.preventDefault() 
@@ -7,10 +9,8 @@ var form = document.getElementsByClassName('form-inline')[0].addEventListener( '
 function geturl(){
     var url = document.getElementsByClassName('form-control')[0].value;
     url = url.split("/",4)[3];
-    //console.log(url);
     request(url)
 }
-
 
 function request( url ){
 
@@ -22,20 +22,28 @@ function request( url ){
     Http.onreadystatechange = (e) => {
         var a = Http.responseText;
 
+
         a = a.slice( a.indexOf('div') )
         a = a.slice( a.indexOf('https') )
         a = a.split('"',1)
-        console.log(a);
-
-        document.getElementById('output').innerHTML = a;
-
-        const audio = document.createElement('audio');
-        audio.src = a;
-       // audio.play();
+        modifycontent(a);
+       
     }  
 }
 
+function modifycontent(link){
 
+    output.style = "display:block";
+
+    document.getElementById("Download").href = link;
+    
+    const audio = document.createElement('audio');
+    audio.src = link;
+    audio.classList.add("embed-responsive-item");
+
+    document.getElementById("audio").appendChild(audio);
+
+}
 
 //https://youtu.be/9iIX4PBplAY
 
