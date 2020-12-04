@@ -21,10 +21,7 @@
         
         <div class="container">
             <div class="intro">
-                <p class="text-center">Nunc luctus in metus eget fringilla. 
-                                       Aliquam sed justo ligula. 
-                                       Vestibulum nibh erat, 
-                                       pellentesque ut laoreet vitae. </p>
+                <p class="text-center">  </p>
             </div>
             
             <form class="form-inline" method="post">
@@ -34,40 +31,34 @@
 
         </div>
 
-
-        <div id="output">
-           
-            <div id="buttons" class="mt-5 d-flex justify-content-center">
-
+        <div id="buttons" style="display:none;">
+            <div class="mt-5 d-flex justify-content-center" >
                 <p class="d-inline-block px-3">
-                  <a href="#" id="Download">
-                      <button class="btn btn-primary">Download Song</button>
-                  </a>    
+                <a href="#" id="Download">
+                    <button class="btn btn-primary">Download Song</button>
+                </a>    
                 </p>
                 
                 <p class="d-inline-block px-3">
-                  <a href="#" id="Listen">
-                      <button class="btn btn-primary">Listen Here</button>
-                  </a>    
+                <a href="#" id="Listen">
+                    <button class="btn btn-primary">Listen Here</button>
+                </a>    
                 </p>
-                
             </div>
+        </div>
 
-            <div id="audio" class="col-sm-4 col-sm-offset-4 embed-responsive embed-responsive-4by3">
+        <div id="music-player" style="display: none;">
+            <div class="mt-5 d-flex justify-content-center" >
+                <audio id="audio" controls loop autoplay style="width: 40%;">
+                    <source src="" type="audio/mp3">
+                    Your browser dose not Support the audio Tag
+                </audio>
             </div>
-            
         </div>    
         
-        <audio src="https://www.yt-download.org/download/9iIX4PBplAY/mp3/320/1606857873/1a0b0fafbaf5c3287f39dcfd2983251c7223dc0be2162576d7a391d4bb9965fc/0" class="embed-responsive-item"></audio>
-        <audio controls>
-            <source src="https://www.yt-download.org/download/9iIX4PBplAY/mp3/320/1606857873/1a0b0fafbaf5c3287f39dcfd2983251c7223dc0be2162576d7a391d4bb9965fc/0" type="audio/ogg">
-            Your browser does not support the audio element.
-          </audio>
+    
     </div>
 
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="app.js"></script>
 </body>
 

@@ -1,7 +1,4 @@
-var output = document.getElementById("output");
-output.style = "display : none";
-
-var form = document.getElementsByClassName('form-inline')[0].addEventListener( 'submit' , (e) => { 
+document.getElementsByClassName('form-inline')[0].addEventListener( 'submit' , (e) => { 
     e.preventDefault() 
     geturl();   
 } )
@@ -12,36 +9,32 @@ function geturl(){
     request(url)
 }
 
-function request( url ){
+function request( url ){ 
+    fetch('https://www.yt-download.org/api/button/mp3/'+url)
+    .then(response => response.text())
+    .then(text => parsecontent(text))
+    .catch(err => console.log('Failed to fetch page: ', err)  ); 
+}
 
-    const Http = new XMLHttpRequest();
-    url='https://www.yt-download.org/api/button/mp3/'+url;
-    Http.open("GET", url);
-    Http.send();
-    
-    Http.onreadystatechange = (e) => {
-        var a = Http.responseText;
-
-
-        a = a.slice( a.indexOf('div') )
-        a = a.slice( a.indexOf('https') )
-        a = a.split('"',1)
-        modifycontent(a);
-       
-    }  
+function parsecontent(html){
+    html = html.slice( html.indexOf('div') )
+    html = html.slice( html.indexOf('https') )
+    html = html.split('"',1)
+    modifycontent(html);
 }
 
 function modifycontent(link){
 
-    output.style = "display:block";
+    document.getElementById("buttons").style = "display:block";
 
     document.getElementById("Download").href = link;
     
-    const audio = document.createElement('audio');
-    audio.src = link;
-    audio.classList.add("embed-responsive-item");
-
-    document.getElementById("audio").appendChild(audio);
+    document.getElementById("Listen").addEventListener('click', e =>{
+        document.getElementById("music-player").style = "display:block"
+        
+        var audio = document.getElementById("audio");
+        audio.src = link;
+    })
 
 }
 
