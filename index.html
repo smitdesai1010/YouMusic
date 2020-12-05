@@ -5,54 +5,70 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>YoutubeMusicPlayer</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/Newsletter-Subscription-Form.css">
 
 </head>
 
 <body style="height: 100%;">
-    
-    
+    <!--Input form-->
+
     <div class="newsletter-subscribe" style="padding-top: 100px;padding-bottom: 0;">
-        
-  
-    <form class="form-inline" method="post">
-        <div class="form-group" style="width: 400px;"><input class="form-control" placeholder="Enter Link" style="width: 390px;"></div>
-        <div class="form-group"><button class="btn btn-primary" type="submit">Go</button></div>
-    </form>
-
-
-        <div id="buttons" style="display:none;">
-            <div class="mt-5 d-flex justify-content-center" >
-                <p class="d-inline-block px-3">
-                <a href="#" id="Download">
-                    <button class="btn btn-primary">Download Song</button>
-                </a>    
-                </p>
-                
-                <p class="d-inline-block px-3">
-                <a href="#" id="Listen">
-                    <button class="btn btn-primary">Listen Here</button>
-                </a>    
-                </p>
-            </div>
-        </div>
-
-        <div id="music-player" style="display: none;">
-            <div class="mt-5 d-flex justify-content-center" >
-                <audio id="audio" controls loop autoplay style="width: 40%;">
-                    <source src="" type="audio/mp3">
-                    Your browser dose not Support the audio Tag
-                </audio>
-            </div>
-        </div>    
-        
-    
+         <form class="form-inline" method="post">
+            <div class="form-group" style="width: 400px;"><input class="form-control" placeholder="Enter Link" style="width: 390px;"></div>
+            <div class="form-group"><button class="btn btn-primary" type="submit">Go</button></div>
+        </form>
     </div>
 
-    <script src="js/app.js"></script>
 
+    <!--Search contents-->
+    <ul class="content container d-flex flex-column justify-content-start mt-5" style="width: 60%;">
+
+        <li onclick="alert('hello')" class="d-flex justify-content-start mt-5" style="background-color: #F4F4F4;">
+            <img src="https://i.ytimg.com/vi/jIjD3MSVfRE/default.jpg" alt="img">
+            
+            <div class="container-fluid">
+                Hello
+            </div>
+        </li>
+        
+    </ul>
+
+
+    <!--Download and play Buttons-->
+    <div id="buttons" style="display:none;">
+        <div class="mt-5 d-flex justify-content-center" >
+            <p class="d-inline-block px-3">
+            <a href="#" id="Download">
+                <button class="btn btn-primary">Download Song</button>
+            </a>    
+            </p>
+            
+            <p class="d-inline-block px-3">
+            <a href="#" id="Listen">
+                <button class="btn btn-primary">Listen Here</button>
+            </a>    
+            </p>
+        </div>
+    </div>
+
+
+    <!--Audio Player-->
+    <div id="music-player" style="display: none;">
+        <div class="mt-5 d-flex justify-content-center" >
+            <audio id="audio" controls loop autoplay style="width: 40%;">
+                <source src="" type="audio/mp3">
+                Your browser dose not Support the audio Tag
+            </audio>
+        </div>
+    </div>    
+        
+
+    <h5 class="mt-5 d-flex justify-content-center" >https://youtu.be/9iIX4PBplAY</h5>
+    
+    <script type="module" src="js/app.js"></script>
 </body>
 
 </html>
