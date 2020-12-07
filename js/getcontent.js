@@ -13,7 +13,7 @@ function start(input){
 function fetchapi(api){
     fetch(api)
     .then( response => response.json() )
-    .then( data => console.log(data))//generatehtml(data.items) )
+    .then( data => console.log(data)) //generatehtml(data.items) )
     .catch( e => console.log('Error'+e))
 }
 
