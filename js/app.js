@@ -10,8 +10,3 @@ document.getElementsByClassName('form-inline')[0]
 
 } )
 
-
-
-
-//https://youtu.be/9iIX4PBplAY
-

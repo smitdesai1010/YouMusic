@@ -1,4 +1,4 @@
-import { generatehtml } from "./generatecontent.js";
+import { generateframes } from "./generatecontent.js";
 
 function start(input){
 
@@ -13,7 +13,7 @@ function start(input){
 function fetchapi(api){
     fetch(api)
     .then( response => response.json() )
-    .then( data => console.log(data)) //generatehtml(data.items) )
+    .then( data => generateframes(data.items) )
     .catch( e => console.log('Error'+e))
 }
 
