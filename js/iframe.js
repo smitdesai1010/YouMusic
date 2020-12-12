@@ -1,5 +1,5 @@
 function onYouTubeIframeAPIReady() {
-
+  console.log('hey')
   for (var i=0; i<10; ++i){
      new YT.Player('iframe'+i,{
       events: {

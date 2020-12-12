@@ -74,3 +74,10 @@
   outline: none !important;
 }
 
+.newsletter-subscribe form .btn-primary .btn-danger {
+  background-color: #055ada !important;
+  color: #fff;
+  outline: none !important;
+}
+
+
