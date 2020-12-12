@@ -9,31 +9,32 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mycss.css">
     <link rel="shortcut icon" href="#">
 
-<body style="height: 100%;  overflow-x: hidden;">
+<body>
 
     <!--Input form-->
-    <form class="form-inline d-flex justify-content-center" 
-          style="transform: scale(1.2); margin-top: 5em;">        
+    <form class="form-inline d-flex flex-wrap justify-content-center">        
         
         <div class="form-group mx-sm-3">
-            <input class="form-control" placeholder="Enter Link" style="width: 390px;">
+            <input id="forminput" class="form-control" placeholder="Enter Link">
         </div>
+        
+        <div style="width: 180px; display: flex">
+            <button id="formbutton" type="submit" class="btn btn-primary mr-3">
+                <i class="fa fa-paper-plane fa-lg"></i>
+            </button>
 
-        <button type="submit" class="btn btn-primary mr-3" style="width: 80px;">
-            <i class="fa fa-paper-plane fa-lg"></i>
-        </button>
-
-        <button class="btn btn-danger" onclick="location.reload()" style="width: 80px;"> 
-            <i class="fa fa-undo fa-lg"></i>
-        </button>
-
+            <button id="formbutton" class="btn btn-danger" onclick="location.reload()"> 
+                <i class="fa fa-undo fa-lg"></i>
+            </button>
+        </div>
+        
     </form>
       
     <!--Search contents-->
-    <ul id="iframecontainer" class="content container d-flex flex-column align-items-center mt-5" style="width: 60%;">
-        
+    <ul id="iframecontainer" class="content container d-flex flex-column align-items-center mt-5">      
     </ul>
 
 
@@ -41,15 +42,15 @@
     <div id="buttons" style="display:none;">
         <div class="mt-5 d-flex justify-content-center" >
             <p class="d-inline-block px-3">
-            <a href="#" id="Download">
-                <button class="btn btn-primary">Download Song</button>
-            </a>    
+                <a href="#" id="Download">
+                    <button class="btn btn-primary">Download Song</button>
+                </a>    
             </p>
             
             <p class="d-inline-block px-3">
-            <a href="#" id="Listen">
-                <button class="btn btn-primary">Listen Here</button>
-            </a>    
+                <a href="#" id="Listen">
+                    <button class="btn btn-primary">Listen Here</button>
+                </a>    
             </p>
         </div>
     </div>

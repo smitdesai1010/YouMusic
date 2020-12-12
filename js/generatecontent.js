@@ -17,13 +17,12 @@ function generateframes( data ){
 function createframes(arr){
     var i = 0;
     arr.forEach(ele => {
-       var iframe = document.createElement('iframe');
+
+       var iframe = document.createElement('iframe')
        iframe.id = 'iframe'+i;
        iframe.src = 'https://www.youtube.com/embed/'+ele+'?enablejsapi=1'
-       iframe.classList.add("mt-5")
-       iframe.height = "300"
-       iframe.width = "450"
-       content.appendChild(iframe);  
+       iframe.classList.add("mt-2")
+       content.appendChild(iframe) 
        ++i;
     });   
 }

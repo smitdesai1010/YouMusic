@@ -1,0 +1,36 @@
+body{
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #222;
+}
+
+form{
+    margin-top: 5em;
+    transform: scale(1.2);
+}
+
+#buttons{
+    transform: scale(1.2);
+}
+
+#formbutton{
+    width: 80px;
+}
+
+#forminput{
+    width: 60vw;
+}
+
+iframe{
+    height: 20vw;
+    width: 40vw;
+}
+
+@media only screen and (max-width: 600px) {
+
+    iframe{
+        height: 20vh;
+        width: 70vw;
+    }
+
+}
