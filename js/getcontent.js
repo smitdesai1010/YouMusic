@@ -2,7 +2,7 @@ import { generateframes } from "./generatecontent.js";
 
 function start(input){
 
-    var key = 'AIzaSyCIYZSTbYtcgsmNNd5wEilrK0ByiUCMv7I'
+    var key = 'AIzaSyAO4VExmqe0ighfBUyCw9QgX4li5tlOUZ4'
     var api = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=' + 
                key + '&type=video&maxResults=10&q=' + input;
 
