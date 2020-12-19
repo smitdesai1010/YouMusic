@@ -22,8 +22,8 @@ form{
 }
 
 iframe{
-    height: 20vw;
-    width: 40vw;
+    height: 14vw;
+    width: 23vw;
 }
 
 @media only screen and (max-width: 600px) {
