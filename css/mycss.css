@@ -1,11 +1,17 @@
 body{
     height: 100%;
     overflow-x: hidden;
-    //background-color: #222;
+
+}
+
+h1{
+    color: red;
+    font-weight: 900;
+    font-size: 60px;
 }
 
 form{
-    margin-top: 5em;
+    margin-top: 3em;
     transform: scale(1.2);
 }
 
