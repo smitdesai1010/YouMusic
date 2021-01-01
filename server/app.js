@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs'); 
-const audio = require('./audio');
+const url = require('url');
+const audio = require('./my_modules/getaudio');
+const content = require('./my_modules/getcontent')
 
 let app = http.createServer( handlerequest );
 
@@ -9,22 +11,19 @@ async function handlerequest(req,res){
 
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.writeHead(200, {'Content-Type': 'audio/mp3'});
-       
-        try{ fs.unlinkSync('audio/file.mp3') }
-        catch(e){}
+        var query = url.parse(req.url,true).query 
 
-        var Id =  req.url.substring(req.url.indexOf('=')+1) 
+        if (query.key){
+            res.writeHead(200,{'Content-Type': 'text/plain'})
+            res.end( await content.start(query.key) );
+        }
 
-        if (!fs.existsSync('audio/file.mp3'))
-         audio.getdata(Id)
-         .then(() => {
-            console.log('done')
-            let mp3 = fs.createReadStream('audio/file.mp3')
+
+        if (query.Id){
+            res.writeHead(200, {'Content-Type': 'audio/mp3'});
+            const mp3 = await audio.getdata(query.Id)
             mp3.pipe(res)      
-         })    
-
-            
+        }
     }
 }
 

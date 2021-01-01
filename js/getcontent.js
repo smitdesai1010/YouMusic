@@ -1,20 +1,17 @@
-import { generateframes } from "./generatecontent.js";
-
 function start(input){
 
-    var key = 'AIzaSyClCgBnyLGw7WhvSJRsGSbKd5Afm-6c-2c'
-    var api = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=' + 
-               key + '&type=video&maxResults=10&q=' + input;
+    fetch("http://localhost:3000?key="+input)
+    .then(res => res.text())
+    .then(txt => {
+        document.getElementsByClassName("content")[0].innerHTML = txt
 
-    fetchapi(api)
-}
-
-
-function fetchapi(api){
-    fetch(api)
-    .then( response => response.json() )
-    .then( data => generateframes(data.items) )
-    .catch( e => console.log('Error'+e))
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        tag.id = "iframeapi"
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    })
+    .catch(e => console.error('Error in Fetching contents: '+e))
 }
 
 

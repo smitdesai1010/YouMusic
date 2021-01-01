@@ -1,7 +1,11 @@
 body{
     height: 100%;
     overflow-x: hidden;
+    background-color: white;
+}
 
+.dark{
+    background-color: #222222;
 }
 
 h1{
