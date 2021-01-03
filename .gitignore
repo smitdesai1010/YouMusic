@@ -1,6 +1,5 @@
 YoutubeMusicPlayer.bsdesign
-server/YouMusic-aws.pem
-server/YouMusic-aws-asia.pem
-server/my_modules/extra
-server/node_modules
+aws
+my_modules/extra
+node_modules
 extra
