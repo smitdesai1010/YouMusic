@@ -7,6 +7,7 @@ const content = require('./my_modules/getcontent')
 let app = http.createServer( handlerequest );
 
 async function handlerequest(req,res){
+    console.log('ok')
     if (req.method == "GET"){
 
         res.setHeader('Access-Control-Allow-Origin', '*');
