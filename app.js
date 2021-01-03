@@ -1,31 +1,23 @@
-const http = require('http');
-const url = require('url');
+const express = require('express')
 const audio = require('./my_modules/getaudio');
 const content = require('./my_modules/getcontent')
 
-let app = http.createServer( handlerequest );
+const app = express();
+const PORT = 3000;
 
-async function handlerequest(req,res){
-    console.log('ok')
-    if (req.method == "GET"){
+app.use(express.static('public'));
 
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        var query = url.parse(req.url,true).query 
-
-        if (query.key){
-            res.writeHead(200,{'Content-Type': 'text/plain'})
-            res.end( await content.start(query.key) );
-        }
+app.get('/iframes/:input', async (req,res)=>{
+    res.writeHead(200,{'Content-Type': 'text/plain'})
+    res.end( await content.start(req.params.input) );
+})
 
 
-        if (query.Id){
-            res.writeHead(200, {'Content-Type': 'audio/mp3'});
-            const mp3 = await audio.getdata(query.Id)
-            mp3.pipe(res)      
-        }
-    }
-}
+app.get('/media/:id', async (req,res)=>{ 
+    res.writeHead(200, {'Content-Type': 'audio/mp3'});
+    const mp3 = await audio.getdata(req.params.id)
+    mp3.pipe(res)  
+})
 
-app.listen(3000, '127.0.0.1');
-console.log('Node server running on port 3000');
+
+app.listen(PORT, () => console.log('Server connected at:', `localhost:${PORT}`));
