@@ -18,7 +18,7 @@ function request( url ){
     var Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
 
-   fetch("http://localhost:3000?Id="+Id)
+   fetch(`media/${Id}`)
    .then(res => {console.log(res); return res.blob()})
    .then(blob => {
           document.getElementById("buttons").style = "display:block";

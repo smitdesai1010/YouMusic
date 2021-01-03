@@ -1,6 +1,6 @@
 function start(input){
 
-    fetch("http://localhost:3000?key="+input)
+    fetch(`iframes/${input}`)
     .then(res => res.text())
     .then(txt => {
         document.getElementsByClassName("content")[0].innerHTML = txt

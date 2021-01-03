@@ -1,5 +1,4 @@
 const http = require('http');
-const fs = require('fs'); 
 const url = require('url');
 const audio = require('./my_modules/getaudio');
 const content = require('./my_modules/getcontent')
