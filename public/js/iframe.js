@@ -17,51 +17,14 @@ function request( url ){
 
     var Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
-
-   fetch(`media/${Id}`)
-   .then(res => {console.log(res); return res.blob()})
-   .then(blob => {
-          document.getElementById("buttons").style = "display:block";
-          
-          document.querySelector('audio').src = URL.createObjectURL(blob)
-          document.getElementById("Download").href = URL.createObjectURL(blob);
-
-          document.getElementById("Listen").addEventListener('click', e =>{
-                document.getElementById("music-player").style = "display:block"
-          })
-    })
-   .catch(err => console.error(err))
-
-  }
-
-/*
-function parsecontent(html){
-    html = html.slice( html.indexOf('div') )
-    html = html.slice( html.indexOf('https') )
-    html = html.split('"',1)
-    modifycontent(html);
-}
-*/
-
-function modifycontent(link){
-
-    link = String(link)
     
-    if (link === "\n")
-     {
-         alert("Invalid Link");
-         return;
-     }
+   fetch(`download/${Id}`)
+   .then(res => res.text())
+   .then(link => document.querySelector('#Download').href = link)
+   .catch(err => console.error(err))
+  
+   document.getElementById("buttons").style = "display:block";
+   document.getElementById("Listen").addEventListener('click', e => document.getElementById("music-player").style = "display:block")
 
-    document.getElementById("buttons").style = "display:block";
-
-    document.getElementById("Download").href = link;
-
-    document.getElementById("Listen").addEventListener('click', e =>{
-        document.getElementById("music-player").style = "display:block"
-        
-        var audio = document.getElementById("audio");
-        audio.src = link;
-    })
-
-}
+   document.querySelector('audio').src = `media/${Id}` 
+  }

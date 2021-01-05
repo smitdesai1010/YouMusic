@@ -1,16 +1,21 @@
+window.onload = () => {
+	document.querySelectorAll('.btn-primary').forEach(ele => ele.style = "background-color: rgb(10, 106, 182)")
+	document.querySelectorAll('.btn-danger').forEach(ele => ele.style = "background-color: #be2e3c")
+}
 document.querySelector('#toggle-switch').addEventListener('click', (event) => {
     document.body.classList.toggle('dark')
     
     if (document.body.classList.contains('dark')){
         event.target.pseudoStyle("before","background-color","black");
         document.querySelectorAll('.btn-primary').forEach(ele => ele.style = "background-color: rgb(10, 106, 182)")
-    }
+		document.querySelectorAll('.btn-danger').forEach(ele => ele.style = "background-color: #be2e3c")
+	}
         
 
     else{
         event.target.pseudoStyle("before","background-color","white");
         document.querySelectorAll('.btn-primary').forEach(ele => ele.style = "background-color: #007bff")
-    
+    	document.querySelectorAll('.btn-danger').forEach(ele => ele.style = "background-color: #dc3545")
     }
           
 })
