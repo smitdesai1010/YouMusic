@@ -5,6 +5,7 @@ const content = require('./my_modules/getcontent')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+var buffer
 
 app.use(express.static('public'));
 
@@ -15,16 +16,70 @@ app.get('/iframes/:input', async (req,res)=>{
 
 
 app.get('/media/:id', async (req,res)=>{ 
-    const data = await audio.getdata(req.params.id,false)
-
-    if (data.Error)
-        return res.status(data.Data);
-
-    const mp3 = data.Data 
-    console.log(mp3)
+           
+    if (!buffer){
+      const data = await audio.getdata(req.params.id,false)
     
-    res.writeHead(200, {'Content-Type': 'audio/mp3'});
-    mp3.pipe(res)  
+      if (data.Error)
+          return res.status(data.Data);
+    
+      buffer = data.Data
+    }
+     
+    const size = buffer.length
+    const range = req.headers.range;
+    
+    if (range){
+        console.log('range')
+        
+        let [start, end] = range.replace(/bytes=/, "").split("-");
+        start = parseInt(start, 10);
+        end = end ? parseInt(end, 10) : size - 1;
+        
+        if (!isNaN(start) && isNaN(end)) {
+            start = start;
+            end = size - 1;
+        }
+
+        if (isNaN(start) && !isNaN(end)) {
+            start = size - end;
+            end = size - 1;
+        }
+        
+        
+        if (start >= size || end >= size) {
+            res.writeHead(416, {"Content-Range": `bytes */${size}`});
+            return res.end();
+        }
+        
+        res.writeHead(206, {
+            "Content-Range": `bytes ${start}-${end}/${size}`,
+            "Accept-Ranges": "bytes",
+            "Content-Length": end - start + 1,
+            "Content-Type": "audio/mp3"
+        });
+        
+        const readable = new Readable()
+        readable._read = () => {}
+        readable.push(buffer.slice(start,end))
+        readable.push(null)
+        readable.pipe(res)  
+    }
+    
+    else{
+        console.log('not range ',buffer.length)
+        
+        res.writeHead(200, {
+            "Content-Length": size,
+            "Content-Type": "audio/mp3"
+        });
+        
+        const readable = new Readable()
+        readable._read = () => {}
+        readable.push(buffer)
+        readable.push(null)
+        readable.pipe(res)  
+    } 
 })
 
 

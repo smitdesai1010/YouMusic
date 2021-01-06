@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const fs = require('fs');
 
+//https://www.yt-download.org/api/button/mp3/AgX2II9si7w
 //id = 'AgX2II9si7w'
 //node my_modules/getaudio.js
 const getdata = async(id,download) => {
@@ -15,8 +16,13 @@ const getdata = async(id,download) => {
     if (download)
         return {Data: link , Error: false};
         
+   
     const res = await fetch(link);
-    return {Data: res.body , Error: false};
+    console.log('got file')    
+    var buffer = await res.buffer()
+    console.log(buffer.length)
+
+    return {Data: buffer , Error: false};
 }
 
 async function parsecontent(html){
@@ -25,7 +31,7 @@ async function parsecontent(html){
         return "HTTP 429: Too many requests"
 
     html = html.slice( html.indexOf('div') )
-    html = html.slice( html.indexOf('https') )
+    html = html.slice( html.lastIndexOf('https') )
     link = html.split('"',1)
     return String(link[0]);
 }
