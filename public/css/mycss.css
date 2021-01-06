@@ -1,0 +1,46 @@
+body{
+    height: 100%;
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.dark{
+    background-color: #222222;
+}
+
+h1{
+    color: red;
+    font-weight: 900;
+    font-size: 60px;
+}
+
+form{
+    margin-top: 3em;
+    transform: scale(1.2);
+}
+
+#buttons{
+    transform: scale(1.2);
+}
+
+#formbutton{
+    width: 80px;
+}
+
+#forminput{
+    width: 60vw;
+}
+
+iframe{
+    height: 14vw;
+    width: 23vw;
+}
+
+@media only screen and (max-width: 600px) {
+
+    iframe{
+        height: 20vh;
+        width: 70vw;
+    }
+
+}
