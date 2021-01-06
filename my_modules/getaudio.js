@@ -8,16 +8,18 @@ const getdata = async(id,download) => {
 
     const response = await fetch('https://www.yt-download.org/api/button/mp3/'+id);
     const text = await response.text();
-    const link = await parsecontent(text);
+    const downloadlink = await parsecontent(text,true);
+    const medialink = await parsecontent(text,false);
     
-    if (link.includes('HTTP 429'))
+
+    if (downloadlink.includes('HTTP 429') || medialink.includes('HTTP 429'))
         return {Data: "HTTP 429" , Error: true}
 
     if (download)
-        return {Data: link , Error: false};
+        return {Data: downloadlink , Error: false};
         
    
-    const res = await fetch(link);
+    const res = await fetch(medialink);
     console.log('got file')    
     var buffer = await res.buffer()
     console.log(buffer.length)
@@ -25,13 +27,13 @@ const getdata = async(id,download) => {
     return {Data: buffer , Error: false};
 }
 
-async function parsecontent(html){
+async function parsecontent(html,download){
 
     if (html.includes('HTTP 429'))
         return "HTTP 429: Too many requests"
 
     html = html.slice( html.indexOf('div') )
-    html = html.slice( html.lastIndexOf('https') )
+    html = download ? html.slice( html.indexOf('https') ) : html.slice( html.lastIndexOf('https') ); 
     link = html.split('"',1)
     return String(link[0]);
 }
