@@ -21,6 +21,11 @@ function request( url ){
    document.getElementById("buttons").style = "display:block";
    document.getElementById("Listen").addEventListener('click', e => document.getElementById("music-player").style = "display:block")
    
+   fetch(`download/info/${Id}`)
+   .then(res => res.text())
+   .then(text => document.querySelector('#Download').download = text+'.mp3')
+   .catch(err => console.log(err)) 
+
    document.querySelector('#Download').href = `download/${Id}`
    document.querySelector('audio').src = `media/${Id}` 
   }
