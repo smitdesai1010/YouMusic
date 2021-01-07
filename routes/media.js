@@ -1,5 +1,5 @@
 const { Readable } = require('stream');
-const audio = require('../my_modules/getaudio');
+const audio = require('../my_modules/getmedia');
 var express = require('express');
 var router = express.Router();
 
@@ -7,14 +7,9 @@ var buffer;
 
 router.get('/:id', async (req,res)=>{ 
            
-    if (!buffer){
-      const data = await audio.getdata(req.params.id,false)
-    
-      if (data.Error)
-          return res.status(data.Data);
-    
-      buffer = data.Data
-    }
+    if (!buffer)
+        buffer= await audio.getdata(req.params.id,false)
+
      
     const size = buffer.length
     const range = req.headers.range;
