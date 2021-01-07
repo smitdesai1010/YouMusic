@@ -2,7 +2,8 @@ const fetch = require('node-fetch');
 
 const start = async (input) => {
 
-    var key = 'AIzaSyCBzpx4xw5wL8JRXMasNJKxarraAqtbdkU';
+    console.log('Enter Google API key')
+    var key = '*';
     var api = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=' + 
                key + '&type=video&maxResults=10&q=' + input;
     var data;
