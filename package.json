@@ -1,0 +1,30 @@
+{
+  "name": "youmusic",
+  "version": "1.0.0",
+  "description": "YouTube Music Player",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "ytdl-core": "^4.4.1"
+  },
+
+  "engines": {
+    "node": "14.15.3"
+  },
+
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smitdesai1010/YouMusic.git"
+  },
+  "author": "S.M DESAI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smitdesai1010/YouMusic/issues"
+  },
+  "homepage": "https://github.com/smitdesai1010/YouMusic#readme"
+}

@@ -1,5 +1,5 @@
 extra
-aws
 node_modules
 my_modules/extra
-my_modules/key.txt
+.dockerignore
+Dockerfile

@@ -14,9 +14,7 @@ router.get('/:id', async (req,res)=>{
     const size = buffer.length
     const range = req.headers.range;
     
-    if (range){
-        console.log('range')
-        
+    if (range){        
         let [start, end] = range.replace(/bytes=/, "").split("-");
         start = parseInt(start, 10);
         end = end ? parseInt(end, 10) : size - 1;
@@ -51,9 +49,7 @@ router.get('/:id', async (req,res)=>{
         readable.pipe(res)  
     }
     
-    else{
-        console.log('not range ',buffer.length)
-        
+    else{        
         res.writeHead(200, {
             "Content-Length": size,
             "Content-Type": "audio/mp3"
