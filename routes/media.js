@@ -4,11 +4,19 @@ var express = require('express');
 var router = express.Router();
 
 var buffer;
+var Id;
 
 router.get('/:id', async (req,res)=>{ 
-           
+    
+    if (!Id || Id != req.params.id){
+        buffer = null;
+        Id = req.params.id
+    }    
+       
+
+
     if (!buffer)
-        buffer= await audio.getdata(req.params.id,false)
+        buffer= await audio.getdata(Id,false)
 
      
     const size = buffer.length
