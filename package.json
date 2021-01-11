@@ -6,13 +6,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "node-fetch": "^2.6.1",
-    "ytdl-core": "^4.4.1"
+    "ytdl-core": "^4.4.2"
   },
-
   "engines": {
     "node": "14.15.3"
   },
-
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
