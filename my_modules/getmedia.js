@@ -5,6 +5,9 @@ const ytdl = require('ytdl-core');
 //node my_modules/getaudio.js
 const getdata = async(id,download) => {
 
+    if (!/^[a-zA-Z0-9-_]{11}$/.test(id))
+      return null
+      
     var stream = ytdl('https://www.youtube.com/watch?v='+id, {
             filter: 'audioonly',
             quality: download ? 'highestaudio' :'lowestaudio'

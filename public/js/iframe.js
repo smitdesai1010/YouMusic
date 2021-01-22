@@ -22,8 +22,14 @@ function request( url ){
    document.getElementById("Listen").addEventListener('click', e => document.getElementById("music-player").style = "display:block")
    
    fetch(`download/info/${Id}`)
-   .then(res => res.text())
-   .then(text => document.querySelector('#Download').download = text+'.mp3')
+   .then(res => {
+     if (res.ok)
+      return res.json()
+
+     else
+      throw new Error(res.status) 
+   })
+   .then(json => document.querySelector('#Download').download = json.Title+'.mp3')
    .catch(err => console.log(err)) 
 
    document.querySelector('#Download').href = `download/${Id}`

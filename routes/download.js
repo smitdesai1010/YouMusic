@@ -4,20 +4,36 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/:id', async (req,res)=>{ 
-
+    
     const stream = await audio.getdata(req.params.id,true)
 
-    res.writeHead(200,{ "Content-Type": "audio/mp3" })
-    stream.pipe(res) 
+    if (!stream){
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.write("Invalid Id");
+        res.end();
+    }
+
+    else{
+        res.writeHead(200,{ "Content-Type": "audio/mp3" })
+        stream.pipe(res) 
+    }
+   
 });
 
 
 router.get('/info/:id', async (req,res)=>{ 
 
-    const {player_response: { videoDetails: { title }  } } = await ytdl.getBasicInfo('https://www.youtube.com/watch?v='+req.params.id);
+    if (!/^[a-zA-Z0-9-_]{11}$/.test(req.params.id)){
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.write("Invalid Id");
+        res.end();
+    }
 
-    res.writeHead(200,{ "Content-Type": "plain/text" })
-    res.write(title)
+    const json = await ytdl.getBasicInfo('https://www.youtube.com/watch?v='+req.params.id);
+    const {player_response: { videoDetails: { title }  } } = json
+    const thumbnail = json.player_response.videoDetails.thumbnail.thumbnails.pop().url
+
+    res.json({'Id':req.params.id,'Title':title,'Thumbnail':thumbnail})
     res.end()
 });
 
