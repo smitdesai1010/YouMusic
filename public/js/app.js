@@ -3,9 +3,8 @@ import {start} from './getcontent.js'
 document.getElementsByClassName('form-inline')[0]
     .addEventListener( 'submit' , (e) => { 
         e.preventDefault() 
-        var input = document.getElementsByClassName("form-control")[0].value;
+        var input = document.getElementById("form-control").value;
         
-        alert(input)
 
         if ( document.getElementById('buttons').style.display == "block" || document.getElementsByClassName("content")[0].innerHTML.indexOf('iframe') != -1){
             localStorage.setItem('input',input)

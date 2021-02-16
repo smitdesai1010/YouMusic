@@ -13,6 +13,7 @@
 	 height: 50px;
 	 padding: 5px 40px 5px 10px;
 	 border: none;
+	 background: transparent;
 	 box-sizing: border-box;
 	 border-radius: 50px;
 	 transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 0.5) 600ms;
