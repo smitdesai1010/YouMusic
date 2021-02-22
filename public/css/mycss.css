@@ -1,22 +1,21 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 html{
     min-height: 100%;
+
 }
 
 body{
+    background-color: #e9ecef;
     min-height: 100%;
     overflow-x: hidden;
     font-family: Raleway, sans-serif;
     background-color: white;
-    background-image: url("../img/3.jpg");
+    background-image: url("../img/5.jpg");
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover; 
 }
 
-.dark{
-    background-color: #222222;
-}
 
 h1{
     color: red;
@@ -29,8 +28,32 @@ form{
     transform: scale(1.2);
 }
 
-#buttons{
-    transform: scale(1.2);
+.btn{
+    background-color: rgba(255, 0, 0, 0.701);
+    border-color: red;
+}
+
+.btn:hover{
+    background-color: red;
+}
+
+
+.reload {
+    display: inline-block;
+    border-radius: 60px;
+    font-size: x-large;
+    padding: 0.5em 0.6em;
+    color: red; 
+    cursor: pointer;
+    padding-left: 30px;
+}
+
+.fa-undo {
+    transition: transform 0.7s;
+}
+
+.rotate {
+    transform: rotate(360deg);
 }
 
 #formbutton{

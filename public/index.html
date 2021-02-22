@@ -10,17 +10,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/mycss.css"/>
-    <link rel="stylesheet" href="css/darkmode.css"/>
     <link rel="stylesheet" href="css/form.css">
     <link rel="shortcut icon" href="img/favicon.png"/>
 </head>
 
-<body class="dark">
-    <!--Dark Mode-->
-    <label class="switch">
-        <input type="checkbox" checked>
-        <span class="slider round" id="toggle-switch"></span>
-    </label>    
+<body>
     
     <h1 class="mt-5 d-flex justify-content-center" title="&#169; S.M Desai">YouMusic</h1>
     <!--Input form-->
@@ -30,17 +24,11 @@
             <input id="form-control" type="text" placeholder=" Search " />
             <span></span>
         </div>
-    <!--    
-        <div style="width: 180px; display: flex">
-            <button id="formbutton" type="submit" class="btn btn-primary mr-3">
-                <i class="fa fa-paper-plane fa-lg"></i>
-            </button>
-
-            <button id="formbutton" class="btn btn-danger" onclick="location.reload()"> 
-                <i class="fa fa-undo fa-lg"></i>
-            </button>
+ 
+        <div class="reload">
+            <i onclick="window.location.reload()" class="fa fa-undo fa-lg"></i>
         </div>
-    -->
+
     </form>
       
     <!--Search contents-->
@@ -53,13 +41,13 @@
         <div class="mt-5 d-flex justify-content-center" >
             <p class="d-inline-block px-3">
                 <a href="#" id="Download" download>
-                    <button class="btn btn-primary">Download Song</button>
+                    <button class="btn btn-primary btn-lg">Download Song</button>
                 </a>    
             </p>
             
             <p class="d-inline-block px-3">
                 <a href="#" id="Listen">
-                    <button class="btn btn-primary">Listen Here</button>
+                    <button class="btn btn-primary btn-lg">Listen Here</button>
                 </a>    
             </p>
         </div>
@@ -81,7 +69,6 @@
         </button>
     </a>-->
  
-    <script src="js/darkmode.js"></script>
     <script src="js/form.js"></script>
     <script type="module" src="js/app.js"></script>
     <script src="js/iframe.js"></script>
