@@ -10,10 +10,11 @@ body{
     overflow-x: hidden;
     font-family: Raleway, sans-serif;
     background-color: white;
-    background-image: url("../img/5.jpg");
+   /* background-image: url("../img/5.jpg");
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover; 
+    */
 }
 
 
@@ -26,6 +27,7 @@ h1{
 form{
     margin-top: 3em;
     transform: scale(1.2);
+    padding-left: 65px;
 }
 
 .btn{

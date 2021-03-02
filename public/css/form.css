@@ -22,7 +22,7 @@
 	 outline: none;
 }
  .search-box input[type="text"]:focus, .search-box input[type="text"]:not(:placeholder-shown) {
-	 width: 300px;
+	 width: 40vw;
 	 transition: width 800ms cubic-bezier(0.5, -0.5, 0.5, 1.5);
 }
  .search-box input[type="text"]:focus + span, .search-box input[type="text"]:not(:placeholder-shown) + span {
