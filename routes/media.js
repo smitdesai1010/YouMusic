@@ -16,6 +16,8 @@ router.get('/:id', async (req,res)=>{
     if (!buffer)
         buffer= await audio.getdata(Id,false)
 
+//https://stackoverflow.com/questions/42227944/err-content-length-mismatch-when-loading-video-in-chrome
+
     const size = buffer.length
     const range = req.headers.range;
     
