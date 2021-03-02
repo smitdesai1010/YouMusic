@@ -12,13 +12,10 @@ router.get('/:id', async (req,res)=>{
         buffer = null;
         Id = req.params.id
     }    
-       
-
 
     if (!buffer)
         buffer= await audio.getdata(Id,false)
 
-     
     const size = buffer.length
     const range = req.headers.range;
     
@@ -52,7 +49,7 @@ router.get('/:id', async (req,res)=>{
         
         const readable = new Readable()
         readable._read = () => {}
-        readable.push(buffer.slice(start,end))
+        readable.push(buffer.slice(start,end+1))
         readable.push(null)
         readable.pipe(res)  
     }
