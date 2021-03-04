@@ -14,7 +14,11 @@ body{
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover; 
+   
+    background: rgb(255,247,244);
+    background: radial-gradient(circle, rgba(255,247,244,1) 0%, rgba(208,140,217,1) 0%, rgba(244,216,255,1) 0%);
     */
+    background-color: rgb(232, 240, 254) 
 }
 
 
