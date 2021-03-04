@@ -121,12 +121,6 @@
  
 
 @media only screen and (max-width: 600px) {
-
-    #music-player{
-        position: fixed;
-        bottom: 10px;
-    }
-
     .audio-player {
         width: 100vw;
     }    
