@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/mycss.css"/>
     <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/musicplayer.css">
     <link rel="shortcut icon" href="img/favicon.png"/>
 </head>
 
@@ -18,7 +19,7 @@
     
     <h1 class="mt-5 d-flex justify-content-center" title="&#169; S.M Desai">YouMusic</h1>
     <!--Input form-->
-    <form class="form-inline d-flex flex-wrap justify-content-center">        
+    <form autocomplete="off" class="form-inline d-flex flex-wrap justify-content-center">        
         
         <div class="search-box">
             <input id="form-control" type="text" placeholder=" Search " />
@@ -54,15 +55,39 @@
     </div>
 
 
-    <!--Audio Player-->
-    <div id="music-player" style="display: none;">
-        <div class="mt-5 d-flex justify-content-center" >
-            <audio id="audio" src="" controls type="audio/mp3" style="width: 85%;">
-                Your browser dose not support the audio tag
-            </audio>
-        </div>
-    </div>    
+    <div id="music-player" style="display: none;">      
+        <div class="mt-5 d-flex justify-content-center">
+            <div class="audio-player">
+                <div class="timeline">
+                    <div class="progress"></div>
+                </div>
     
+                <div class="controls">
+                    <div class="play-container">
+                        <div class="toggle-play play"></div>
+                    </div>
+    
+                    <div class="time">
+                        <div class="current">0:00</div>
+                        <div class="divider">/</div>
+                        <div class="length"></div>
+                    </div>
+                    
+                    <i style="cursor: pointer;" class="fa fa-download fa-md"></i>
+    
+                    <div class="volume-container">
+                        <div class="volume-button">
+                            <div class="volume icono-volumeMedium"></div>
+                        </div>
+                        
+                        <div class="volume-slider">
+                            <div class="volume-percentage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--<a href="#" id="CE" class="d-flex justify-content-center">
         <button id="buttons" class="btn btn-primary" onclick="alert('Coming Soon...')">
             Get Chrome Extension
@@ -72,6 +97,7 @@
     <script src="js/form.js"></script>
     <script type="module" src="js/app.js"></script>
     <script src="js/iframe.js"></script>
+    <script src="js/musicplayer.js"></script>
 </body>
 
 </html>

@@ -18,8 +18,13 @@ function request( url ){
     var Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
 
-   document.getElementById("buttons").style = "display:block";
-   document.getElementById("Listen").addEventListener('click', e => document.getElementById("music-player").style = "display:block")
+   document.getElementById("buttons").style = "display: block";
+   document.querySelector(".fa-download").addEventListener( 'click', e => document.querySelector('#Download').click() )
+
+   document.getElementById("Listen").addEventListener('click', e => {
+     document.getElementById("music-player").style = "display:block"
+     document.getElementById("buttons").style = "display: none";  
+    })
    
    fetch(`download/info/${Id}`)
    .then(res => {
@@ -33,5 +38,7 @@ function request( url ){
    .catch(err => console.log(err)) 
 
    document.querySelector('#Download').href = `download/${Id}`
-   document.querySelector('audio').src = `media/${Id}` 
+
+   loadmusicplayer(Id);
+   console.log('done')
   }
