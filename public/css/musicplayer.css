@@ -5,6 +5,14 @@
     border-radius: 0% !important;
 }
 
+.highlight{
+	background-color: rgb(247, 87, 87) ;
+}
+
+.timeline{
+	border-bottom: black solid 1px;
+}
+
 .audio-player {
 	 height: 45px;
 	 width: 50vw;

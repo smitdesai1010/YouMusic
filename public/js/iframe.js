@@ -40,5 +40,4 @@ function request( url ){
    document.querySelector('#Download').href = `download/${Id}`
 
    loadmusicplayer(Id);
-   console.log('done')
   }

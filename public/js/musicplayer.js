@@ -1,9 +1,15 @@
 function loadmusicplayer(Id) {
     
     const audioPlayer = document.querySelector(".audio-player");
-    const audio = new Audio(  `media/${Id}`  );
+    const audio = new Audio(`media/${Id}`);
+    audio.loop = false;
+  
 
-    console.dir(audio);
+    document.getElementById("loop").addEventListener( "click" , e => {
+        e.target.classList.toggle("highlight");
+        audio.loop = !audio.loop;
+        console.log(audio.loop)
+    } )
 
     audio.addEventListener("loadeddata",() => {
         audioPlayer.querySelector(".time .length").textContent = getTimeCodeFromNum(audio.duration);
@@ -68,6 +74,15 @@ function loadmusicplayer(Id) {
         }
     });
     
+
+    
+    audio.onended = () => { 
+        if (!audio.loop)  
+        {
+            playBtn.classList.remove("pause");
+            playBtn.classList.add("play");
+        }
+    } 
 
 }
 
