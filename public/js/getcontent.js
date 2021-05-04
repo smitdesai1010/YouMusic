@@ -1,9 +1,11 @@
 function start(input){
 
+    input = input + ' song';
+
     fetch(`iframes/${input}`)
     .then(res => res.text())
     .then(txt => {
-        document.getElementsByClassName("content")[0].innerHTML = txt
+        document.getElementsByClassName("content")[0].innerHTML = txt;
 
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
