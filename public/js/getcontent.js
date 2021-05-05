@@ -5,6 +5,9 @@ function start(input){
     fetch(`iframes/${input}`)
     .then(res => res.text())
     .then(txt => {
+        //hide the primary btns
+        document.getElementById("primary buttons").style.visibility = "hidden";
+
         document.getElementsByClassName("content")[0].innerHTML = txt;
 
         var tag = document.createElement('script');
