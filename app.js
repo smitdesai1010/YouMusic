@@ -17,5 +17,10 @@ app.use('/media',cors(corsoption) ,media)
 app.use('/download',cors(corsoption) ,download)
 app.use('/emotionDetection',emotionDetection)
 
+app.all('*',(req,res) =>{
+    res.writeHead(404,{'Content-Type': 'text/plain'})
+    res.end('This is a invalid route');
+})
+
 
 app.listen(PORT, () => console.log('Server connected at:', `localhost:${PORT}`));
