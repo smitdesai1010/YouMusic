@@ -18,4 +18,5 @@ const getdata = async (id) => {
 
 }
 
+
 exports.getdata = getdata
