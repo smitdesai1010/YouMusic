@@ -38,7 +38,7 @@
 
 
     <!--Download and play Buttons-->
-    <div id="buttons" style="display:none;">
+    <div id="secondary buttons" style="display:none;">
         <div class="mt-5 d-flex justify-content-center" >
             <p class="d-inline-block px-3">
                 <a href="#" id="Download" download>
@@ -92,14 +92,25 @@
             </div>
         </div>
     </div>
-    <!--<a href="#" id="CE" class="d-flex justify-content-center">
-        <button id="buttons" class="btn btn-primary" onclick="alert('Coming Soon...')">
-            Get Chrome Extension
-        </button>
-    </a>-->
- 
+        
+    <div class="d-flex justify-content-center" id="primary buttons">
+        <a href="#" id="CE" class="d-flex justify-content-center">
+            <button id="ChromeExtension" class="btn btn-primary mx-3" onclick="alert('Coming Soon...\nUnder review by Google chrome store')">
+                Get Chrome Extension
+            </button>
+        </a>
+     
+        <!-- <a href="#" id="CE" class="d-flex justify-content-center">
+            <button id="clickPic" class="btn btn-primary">
+                Generate playlist
+            </button>
+        </a> -->
+    </div>
+   
+
     <script src="js/form.js"></script>
     <script type="module" src="js/app.js"></script>
+    <!-- <script type="module" src="js/clickPicture.js"></script> -->
     <script src="js/iframe.js"></script>
     <script src="js/musicplayer.js"></script>
 </body>

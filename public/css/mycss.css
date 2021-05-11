@@ -5,20 +5,14 @@ html{
 }
 
 body{
-    background-color: #e9ecef;
     min-height: 100%;
     overflow-x: hidden;
     font-family: Raleway, sans-serif;
     background-color: white;
-   /* background-image: url("../img/5.jpg");
+    background-image: url("../img/1.png");
     background-position: center; 
     background-repeat: no-repeat; 
     background-size: cover; 
-   
-    background: rgb(255,247,244);
-    background: radial-gradient(circle, rgba(255,247,244,1) 0%, rgba(208,140,217,1) 0%, rgba(244,216,255,1) 0%);
-    */
-    background-color: rgb(232, 240, 254) 
 }
 
 

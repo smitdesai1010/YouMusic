@@ -18,12 +18,12 @@ function request( url ){
     var Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
 
-   document.getElementById("buttons").style = "display: block";
+   document.getElementById("secondary buttons").style = "display: block";
    document.querySelector(".fa-download").addEventListener( 'click', e => document.querySelector('#Download').click() )
 
    document.getElementById("Listen").addEventListener('click', e => {
      document.getElementById("music-player").style = "display:block"
-     document.getElementById("buttons").style = "display: none";  
+     document.getElementById("secondary buttons").style = "display: none";  
     })
    
    fetch(`download/info/${Id}`)
@@ -34,10 +34,12 @@ function request( url ){
      else
       throw new Error(res.status) 
    })
-   .then(json => document.querySelector('#Download').download = json.Title+'.mp3')
+   .then(json => {
+     document.querySelector('#Download').download = json.Title+'.mp3';
+     document.querySelector('#Download').href = `download/${Id}`;
+    })
    .catch(err => console.log(err)) 
 
-   document.querySelector('#Download').href = `download/${Id}`
 
    loadmusicplayer(Id);
   }

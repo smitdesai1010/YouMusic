@@ -2,8 +2,8 @@ const fetch = require('node-fetch');
 var fs = require('fs');
 
 const start = async (input) => {
-    
-    var key = fs.readFileSync('./my_modules/key.txt',{ encoding: 'utf8' });
+    var filepath = './my_modules/Key/youtubeV3.txt';
+    var key = fs.readFileSync(filepath,{ encoding: 'utf8' });
     var api = 'https://www.googleapis.com/youtube/v3/search?part=snippet&key=' + 
                key + '&type=video&maxResults=10&q=' + input;
     var data;
