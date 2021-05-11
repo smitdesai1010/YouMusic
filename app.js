@@ -3,7 +3,7 @@ const cors = require('cors')
 const iframes = require('./routes/iframes')
 const media = require('./routes/media')
 const download = require('./routes/download')
-const emotionDetection = require('./routes/emotionDetection')
+// const emotionDetection = require('./routes/emotionDetection')
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,7 +15,7 @@ app.use(express.static('public'));
 app.use('/iframes',iframes);
 app.use('/media',cors(corsoption) ,media)
 app.use('/download',cors(corsoption) ,download)
-app.use('/emotionDetection',emotionDetection)
+// app.use('/emotionDetection',emotionDetection)
 
 app.all('*',(req,res) =>{
     res.writeHead(404,{'Content-Type': 'text/plain'})
