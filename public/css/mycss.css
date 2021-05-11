@@ -37,15 +37,17 @@ form{
     background-color:blue;
 }
 
+#formbtns{
+    padding-left: 15px;
+}
 
 .reload, #submit {
     display: inline-block;
     border-radius: 60px;
     font-size: x-large;
-    padding: 0.5em 0.6em;
+    padding: 0.5em 0.3em;
     color: red; 
     cursor: pointer;
-    padding-left: 30px;
 }
 
 .fa-undo {
@@ -61,7 +63,15 @@ iframe{
     width: 23vw;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
+
+    body{
+        background-image: none;
+    }
+
+    #formbtns{
+        padding-left: 10px;
+    }
 
     iframe{
         height: 20vh;

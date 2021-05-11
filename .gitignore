@@ -6,3 +6,4 @@ Dockerfile
 my_modules/image.jpg
 .env
 public/img/extra
+heroku.txt
