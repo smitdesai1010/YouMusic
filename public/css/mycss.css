@@ -38,7 +38,7 @@ form{
 }
 
 
-.reload {
+.reload, #submit {
     display: inline-block;
     border-radius: 60px;
     font-size: x-large;
@@ -54,14 +54,6 @@ form{
 
 .rotate {
     transform: rotate(360deg);
-}
-
-#formbutton{
-    width: 80px;
-}
-
-#forminput{
-    width: 60vw;
 }
 
 iframe{
