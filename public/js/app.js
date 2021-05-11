@@ -5,7 +5,6 @@ document.getElementsByClassName('form-inline')[0]
         e.preventDefault() 
         var input = document.getElementById("form-control").value;
     
-        //document.querySelector('#CE').style.visibility = "hidden";
         start(input+' song')
 
 } )
