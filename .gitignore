@@ -4,3 +4,5 @@ my_modules/extra
 .dockerignore
 Dockerfile
 my_modules/FaceDetection.json
+my_modules/image.jpg
+my_modules/Key/FaceDetection.json
