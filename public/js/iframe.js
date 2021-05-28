@@ -18,12 +18,12 @@ function request( url ){
     var Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
 
-   document.getElementById("secondary buttons").style = "display: block";
-   document.querySelector(".fa-download").addEventListener( 'click', e => document.querySelector('#Download').click() )
+    document.getElementById("secondary buttons").style = "display: block";
+    document.querySelector(".fa-download").addEventListener( 'click', e => document.querySelector('#Download').click() )
 
-   document.getElementById("Listen").addEventListener('click', e => {
-     document.getElementById("music-player").style = "display:block"
-     document.getElementById("secondary buttons").style = "display: none";  
+    document.getElementById("Listen").addEventListener('click', e => {
+          document.getElementById("music-player").style = "display:block"
+          document.getElementById("secondary buttons").style = "display: none";  
     })
    
    fetch(`download/info/${Id}`)
