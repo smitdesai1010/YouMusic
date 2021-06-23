@@ -13,7 +13,8 @@ const getdata = async (id) => {
           quality: 'lowestaudio'
         })
 
-    var buffer = await new Response(stream).buffer();
+    var buffer = await new Response(stream).buffer()
+                 .catch(err => console.log('Error in getting buffer\n'+ err))
     return buffer; 
 
 }
