@@ -13,8 +13,7 @@ router.get('/info/:id', async (req,res)=>{
     const json = await ytdl.getBasicInfo('https://www.youtube.com/watch?v='+req.params.id)
                        .catch(err => console.log('Error in getting video info\n'+err))
 
-    if (json == null) 
-    {
+    if (json == null) {
         res.sendStatus(404);
         return;
     }

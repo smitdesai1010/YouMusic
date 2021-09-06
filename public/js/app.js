@@ -5,43 +5,36 @@ document.querySelectorAll('.search-box input[type="text"] + span')[0]
 });
 //-------------------------------------------------
 
+document.getElementById('submit').addEventListener('click', fetchIframes);
+document.getElementsByClassName('form-inline')[0].addEventListener( 'submit' , fetchIframes);
 
-document.getElementById('submit')
-    .addEventListener('click', (e) => {
-        e.stopPropagation();
-        var input = document.getElementById("form-control").value;
-    
-        start(input+' song')
-})
-
-document.getElementsByClassName('form-inline')[0]
-    .addEventListener( 'submit' , (e) => { 
-        e.preventDefault() 
-        var input = document.getElementById("form-control").value;
-    
-        getContent(input+' song')
-
-})
-
-function getContent(input){
-
-    input = input + ' song';
+function fetchIframes(e) {
+    e.preventDefault();
+    let input = document.getElementById("form-control").value + ' song';
 
     fetch(`iframes/${input}`)
-    .then(res => res.text())
-    .then(txt => {
+    .then(response => {
+        if (response.status != 200)
+            throw response.status+': '+response.statusText;
+        
+        return response.json();
+    })
+    .then(json => {
+        //load iframe html code from youtube id
+        let i = 0;
+        let iframeHTML = '';
+        json.forEach(ele => iframeHTML += `<iframe id='iframe${i++}' src='https://www.youtube.com/embed/${ele}?enablejsapi=1' class="mt-2"></iframe>\n`); 
+        document.getElementsByClassName("content")[0].innerHTML = iframeHTML;
+
         //hide the primary btns
         document.getElementById("primary buttons").style.visibility = "hidden";
 
-        document.getElementsByClassName("content")[0].innerHTML = txt;
-
-        var tag = document.createElement('script');
+        //loads iframe api
+        let tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         tag.id = "iframeapi"
-        var firstScriptTag = document.getElementsByTagName('script')[0];
+        let firstScriptTag = document.getElementsByTagName('script')[0];
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     })
-    .catch(e => console.error('Error in Fetching contents: '+e))
+    .catch(error => console.error('Error in Fetching contents: '+error))
 }
-
-

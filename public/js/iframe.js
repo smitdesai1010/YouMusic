@@ -12,10 +12,10 @@ function onYouTubeIframeAPIReady() {
 
 function request( url ){ 
   
-  if (url == "")
-    return
+    if (url == "")
+      return
 
-    var Id = url.substring( url.indexOf('=') + 1 )  
+    let Id = url.substring( url.indexOf('=') + 1 )  
     document.getElementById("iframecontainer").innerHTML = ''
 
     document.getElementById("secondary buttons").style = "display: block";
