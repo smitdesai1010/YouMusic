@@ -1,10 +1,8 @@
 extra
 node_modules
-my_modules/extra
 .dockerignore
 Dockerfile
-my_modules/image.jpg
 .env
 public/img/extra
 heroku.txt
-coveo.java
+

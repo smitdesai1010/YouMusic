@@ -1,7 +1,7 @@
 function loadmusicplayer(Id) {
     
     const audioPlayer = document.querySelector(".audio-player");
-    const audio = new Audio(`media/${Id}`);
+    const audio = new Audio(`audio/stream/${Id}`);
     audio.loop = false;
   
 

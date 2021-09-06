@@ -26,7 +26,7 @@ function request( url ){
           document.getElementById("secondary buttons").style = "display: none";  
     })
    
-   fetch(`download/info/${Id}`)
+   fetch(`audio/info/${Id}`)
    .then(res => {
      if (res.ok)
       return res.json()
@@ -36,7 +36,7 @@ function request( url ){
    })
    .then(json => {
      document.querySelector('#Download').download = json.Title+'.mp3';
-     document.querySelector('#Download').href = `download/${Id}`;
+     document.querySelector('#Download').href = `audio/download/${Id}`;
     })
    .catch(err => console.log(err)) 
 
