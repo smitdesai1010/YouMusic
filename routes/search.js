@@ -4,8 +4,6 @@ const router = express.Router();
 
  //try to find a way to throw a object as an error around
  //also see how will a catch block with a object react to a generic string error being throw
- //Have a better name than ifram since iframes are generated up on client side now
-
 
 router.get('/:input', (req,res) => {
 

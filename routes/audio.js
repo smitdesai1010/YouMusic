@@ -4,8 +4,6 @@ const ytdl = require('ytdl-core')
 const express = require('express');
 const router = express.Router();
 
-let buffer;
-let Id;
 
 router.use((req, res, next) => {
     const id = req.originalUrl.substr(req.originalUrl.lastIndexOf('/')+1);
@@ -52,23 +50,21 @@ router.get('/info/:id', (req,res) => {
 });
 
 
+
+const cache = new Map();
+
 router.get('/stream/:id', async (req,res) => { 
     
-    if (!Id || Id != req.params.id) {
-        buffer = null;
-        Id = req.params.id
-    }    
+    if (!cache.has(req.params.id))
+        cache.set(req.params.id, await getdata(req.params.id))
 
-    if (!buffer)
-        buffer = await getdata(Id)
-
-    if (buffer == null) {
+    if (cache.get(req.params.id) == null) {
         res.status(404).send('Unable to stream');
         return;
     }    
     //https://stackoverflow.com/questions/42227944/err-content-length-mismatch-when-loading-video-in-chrome
 
-    const size = buffer.length
+    const size = cache.get(req.params.id).length
     const range = req.headers.range;
     
     if (range) {        
@@ -101,7 +97,7 @@ router.get('/stream/:id', async (req,res) => {
         
         const readable = new Readable()
         readable._read = () => {}
-        readable.push(buffer.slice(start,end+1))
+        readable.push(cache.get(req.params.id).slice(start,end+1))
         readable.push(null)
         readable.pipe(res)  
     }
@@ -114,7 +110,7 @@ router.get('/stream/:id', async (req,res) => {
         
         const readable = new Readable()
         readable._read = () => {}
-        readable.push(buffer)
+        readable.push(cache[req.params.id])
         readable.push(null)
         readable.pipe(res)  
     } 
@@ -122,16 +118,14 @@ router.get('/stream/:id', async (req,res) => {
 
 
 const getdata = async (id) => {
+    console.log('DATA')
 
-    if (!/^[a-zA-Z0-9-_]{11}$/.test(id))
-      return null;
-
-    var stream = ytdl('https://www.youtube.com/watch?v='+id, {
+    const stream = ytdl('https://www.youtube.com/watch?v='+id, {
           filter: 'audioonly',
           quality: 'lowestaudio'
         })
 
-    var buffer = await new Response(stream).buffer()
+    const buffer = await new Response(stream).buffer()
                  .catch(err => console.log('Error in getting buffer\n'+ err))
     return buffer; 
 

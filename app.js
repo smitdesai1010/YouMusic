@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express')
 const cors = require('cors')
-const iframes = require('./routes/iframes')
+const search = require('./routes/search')
 const audio = require('./routes/audio')
 // const emotionDetection = require('./routes/emotionDetection')
 
@@ -9,16 +9,17 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-corsOption = { origin : 'chrome-extension://kggdmnnhhkmkbaggailkanenennjfiko' }
+corsOption = { 
+    origin : 'chrome-extension://kggdmnnhhkmkbaggailkanenennjfiko' 
+}
 
 app.use(express.static('public'));
-app.use('/iframes',iframes);
+app.use('/search',search);
 app.use('/audio',cors(corsOption) ,audio)
 // app.use('/emotionDetection',emotionDetection)
 
-app.all('*',(req,res) =>{
-    res.writeHead(404,{'Content-Type': 'text/plain'})
-    res.end('This is a invalid route');
+app.all('*',(req,res) => {
+    res.send('This is a invalid route');
 })
 
 

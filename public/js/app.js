@@ -12,7 +12,7 @@ function fetchIframes(e) {
     e.preventDefault();
     let input = document.getElementById("form-control").value + ' song';
 
-    fetch(`iframes/${input}`)
+    fetch(`search/${input}`)
     .then(response => {
         if (response.status != 200)
             throw response.status+': '+response.statusText;
