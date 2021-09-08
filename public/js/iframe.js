@@ -28,18 +28,16 @@ function request( url ){
    
    fetch(`audio/info/${Id}`)
    .then(res => {
-     if (res.ok)
-      return res.json()
+      if (res.ok)
+        return res.json()
 
-     else
-      throw new Error(res.status) 
+      else
+        throw new Error(res.status) 
    })
    .then(json => {
-     document.querySelector('#Download').download = json.Title+'.mp3';
-     document.querySelector('#Download').href = `audio/download/${Id}`;
+      document.querySelector('#Download').download = json.Title+'.mp3';
+      document.querySelector('#Download').href = `audio/download/${Id}`;
+      loadmusicplayer(Id);
     })
    .catch(err => console.log(err)) 
-
-
-   loadmusicplayer(Id);
   }

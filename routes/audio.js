@@ -3,7 +3,7 @@ const { Response } = require('node-fetch');
 const ytdl = require('ytdl-core')
 const express = require('express');
 const router = express.Router();
-
+const cache = [];
 
 router.use((req, res, next) => {
     const id = req.originalUrl.substr(req.originalUrl.lastIndexOf('/')+1);
@@ -36,7 +36,18 @@ router.get('/info/:id', (req,res) => {
         if (response == null) {
             throw 'Response from fetching information is empty';
         }
-    
+
+        response.formats.forEach(format => {
+            if (format.itag == 249)  {
+                if (!(req.params.id in cache))
+                    cache[req.params.id] = {
+                        contentLength: format.contentLength
+                    }
+                else
+                    cache[req.params.id].contentLength = format.contentLength
+            } 
+        })
+
         const {player_response: { videoDetails: { title }  } } = response
         const thumbnail = response.player_response.videoDetails.thumbnail.thumbnails.pop().url
 
@@ -50,21 +61,25 @@ router.get('/info/:id', (req,res) => {
 });
 
 
-
-const cache = new Map();
-
 router.get('/stream/:id', async (req,res) => { 
-    
-    if (!cache.has(req.params.id))
-        cache.set(req.params.id, await getdata(req.params.id))
 
-    if (cache.get(req.params.id) == null) {
+    if (!(req.params.id in cache)) {
+        cache[req.params.id] = { 
+            audioData: await getData(req.params.id)
+        }
+    }
+
+    else
+        cache[req.params.id].audioData = await getData(req.params.id);
+
+
+    if (cache[req.params.id].audioData == null) {
         res.status(404).send('Unable to stream');
         return;
     }    
     //https://stackoverflow.com/questions/42227944/err-content-length-mismatch-when-loading-video-in-chrome
 
-    const size = cache.get(req.params.id).length
+    const size = cache[req.params.id].audioData.length
     const range = req.headers.range;
     
     if (range) {        
@@ -97,7 +112,7 @@ router.get('/stream/:id', async (req,res) => {
         
         const readable = new Readable()
         readable._read = () => {}
-        readable.push(cache.get(req.params.id).slice(start,end+1))
+        readable.push(cache[req.params.id].audioData.slice(start,end+1))
         readable.push(null)
         readable.pipe(res)  
     }
@@ -110,25 +125,52 @@ router.get('/stream/:id', async (req,res) => {
         
         const readable = new Readable()
         readable._read = () => {}
-        readable.push(cache[req.params.id])
+        readable.push(cache[req.params.id].audioData)
         readable.push(null)
         readable.pipe(res)  
     } 
 });
 
 
-const getdata = async (id) => {
-    console.log('DATA')
+const getData = (id) => {
+    return new Promise((resolve, reject) => {
 
-    const stream = ytdl('https://www.youtube.com/watch?v='+id, {
-          filter: 'audioonly',
-          quality: 'lowestaudio'
-        })
+        let array = [];
+        const chunk = 100 * 1024;   //100kb
+        let numberOfChunks = 1;
 
-    const buffer = await new Response(stream).buffer()
-                 .catch(err => console.log('Error in getting buffer\n'+ err))
-    return buffer; 
+        if ( (id in cache) && cache[id].contentLength != null)
+            numberOfChunks = Math.ceil((cache[id].contentLength / chunk));
+    
+        for (let i = 0; i < numberOfChunks; ++i) {
 
-}
+            let startRange = chunk * i;
+            let endRange = chunk * (i+1) - 1;
+
+            if (i == numberOfChunks - 1)        //last chunk
+                endRange = null;    
+                
+            const stream = ytdl('https://www.youtube.com/watch?v='+id, {
+                filter: 'audioonly',
+                quality: 'lowestaudio',
+                range: {start: startRange, end: endRange}
+              })
+    
+            new Response(stream).buffer()
+            .then(buffer => {
+                array[i] = buffer;     //store chunks in their respective positions
+                --numberOfChunks;      //decrement to signal a chunk is processed
+    
+                if (numberOfChunks == 0) {     //all chunks are processed
+                    resolve(Buffer.concat(array));
+                }
+            })
+            .catch(err => {
+                console.log('Error in getting buffer\n'+ err);
+                reject(null);
+            })
+        }
+    })
+ }
 
 module.exports = router;
