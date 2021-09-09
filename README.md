@@ -12,16 +12,18 @@ songs from the internet and being annoyed by the constant popping ads of YouTube
 
 ![System-Design](System-Design-whimsical.com.png)
 
-## Screenshots
-<p>
-  <img src="Assets/SS-2.jpg"/>
-</p>
+<details>
+    <summary style="cursor:pointer; font-size: 28px; font-weight: bold; font">Screenshots</summary>
+    <p>
+      <img src="Assets/SS-2.jpg"/>
+    </p>
+    <p float="left">
+      <img src="Assets/SS-3.jpg" width="50%"/>
+      <img src="Assets/SS-4.jpg" width="49%"/>
+    </p>
+</details>
 
-<p float="left">
-  <img src="Assets/SS-3.jpg" width="50%"/>
-  <img src="Assets/SS-4.jpg" width="49%"/>
-</p>
-
+<br/>
 
 ## Working
 
