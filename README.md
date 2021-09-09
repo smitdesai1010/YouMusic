@@ -5,8 +5,16 @@ A music player which plays as well as downloads any song from YouTube
 
 This application was developed after I found out that my father and his non-technical friends had troubles trying to download
 songs from the internet and being annoyed by the constant popping ads of YouTube premium
-## Screenshots
 
+## Screenshots
+<p>
+  <img src="Assets/SS-2.jpg"/>
+</p>
+
+<p float="left">
+  <img src="Assets/SS-3.jpg" width="50%"/>
+  <img src="Assets/SS-4.jpg" width="49%"/>
+</p>
 
 
 ## Working
@@ -54,15 +62,12 @@ songs from the internet and being annoyed by the constant popping ads of YouTube
 * Improve UI and allow users to select audio quality.
 
 
-## Lessons Learned
-
-
   
 ## Run Locally
 
 Install node and npm
 ```
-https://nodejs.org/en/download/
+  https://nodejs.org/en/download/
 ```
 
 Clone the project
