@@ -8,6 +8,10 @@ A music player which plays as well as downloads any song from YouTube
 This application was developed after I found out that my father and his non-technical friends had troubles trying to download
 songs from the internet and being annoyed by the constant popping ads of YouTube premium
 
+
+
+![System-Design](System-Design-whimsical.com.png)
+
 ## Screenshots
 <p>
   <img src="Assets/SS-2.jpg"/>
