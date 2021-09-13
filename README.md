@@ -49,13 +49,13 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 
 ## Optimizations
 
-* Reduced latency by 290% by using range requests for streaming.
+* Reduced latency by 87% by using range requests for streaming.
 * Further reduced latency to real time by using in-memory cache.
 * Optimized server performance by 22% by asychronous batch processing.
     * For batch processing, I decided to use the asychronous approach because as 
       node.js is single threaded, parallelism using child processes requires the creation of seperate processes, 
       which is resource-extensive.   
-* Enhanced client satisfaction by 85% by building search UI instead of console style UI.
+* Enhanced client satisfaction by 80% by building search UI instead of console style UI.
 * Improved user experience by building a chrome extension
     * Chrome extension drastically reduces the number of clicks as the user
       can access the app's funtionality within YouTube.
