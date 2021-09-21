@@ -8,7 +8,7 @@ A music player which plays as well as downloads any song from YouTube
 This application was developed after I found out that my father and his non-technical friends had troubles trying to download
 songs from the internet and were being annoyed by the constant popping ads of YouTube premium
 
-[Click here](https://github.com/smitdesai1010/YouMusic-ChromeExtension) for Chrome extension
+[Click here](https://github.com/smitdesai1010/YouMusic-ChromeExtension#youmusic-chromeextension) for Chrome extension
 
 
 ![System-Design](System-Design-whimsical.com.png)
@@ -49,8 +49,8 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 
 ## Optimizations
 
-* Reduced latency by 87% by using range requests for streaming.
-* Further reduced latency to real time by using in-memory cache.
+* Reduced buffering by 87% by using range requests for streaming.
+* Further reduced buffering to real time by using in-memory cache.
 * Optimized server performance by 22% by asychronous batch processing.
     * For batch processing, I decided to use the asychronous approach because as 
       node.js is single threaded, parallelism using child processes requires the creation of seperate processes, 
