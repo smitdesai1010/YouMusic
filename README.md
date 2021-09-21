@@ -51,7 +51,7 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 
 * Reduced buffering by 87% by using range requests for streaming.
 * Further reduced buffering to real time by using in-memory cache.
-* Optimized server performance by 22% by asychronous batch processing.
+* Optimized server performance by 22% by asychronous chunk processing.
     * For batch processing, I decided to use the asychronous approach because as 
       node.js is single threaded, parallelism using child processes requires the creation of seperate processes, 
       which is resource-extensive.   
