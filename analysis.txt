@@ -1,0 +1,45 @@
+Duration of song - Time taken to process by server - Video ID
+
+Async chunk processing
+==================================
+==================================
+a) 220 s -  894 ms - kffacxfA7G4 
+b) 379 s - 1132 ms - IjBAgWKW12Y
+c) 138 s -  597 ms - h6aGikIL-I4
+d) 764 s - 1509 ms - U8aghkgeCQ
+e) 320 s -  862 ms - YkIWEmg1m68
+f) 323 s - 1161 ms - Oka69aDkBV4
+g) 251 s - 1606 ms - jHNNMj5bNQw
+h) 232 s -  856 ms - xitd9mEZIHk
+i) 904 s - 2334 ms - 3Yzuoelmjn8
+j) 279 s -  901 ms - HexFqifusOk
+k) 306 s - 1270 ms - caoGNx1LF2Q
+--------------------------------
+   4116 s - 13122 ms 
+
+
+
+
+Worker threads
+==================================
+==================================
+a) 220 s -  894 ms - kffacxfA7G4 
+b) 379 s - 1132 ms - IjBAgWKW12Y
+c) 138 s -  597 ms - h6aGikIL-I4
+d) 764 s - 1509 ms - U8aghkgeCQ
+e) 320 s -  862 ms - YkIWEmg1m68
+f) 323 s - 1161 ms - Oka69aDkBV4
+g) 251 s - 1606 ms - jHNNMj5bNQw
+h) 232 s -  856 ms - xitd9mEZIHk
+i) 904 s - 2334 ms - 3Yzuoelmjn8
+j) 279 s -  901 ms - HexFqifusOk
+k) 306 s - 1270 ms - caoGNx1LF2Q
+--------------------------------
+   4116 s - 13122 ms 
+
+
+
+Increased the chunk size for the Worker thread to 1MB
+The processing time required increased, the following may be the reason:
+- Since worker thread use inter-process communication, this could increase the time.
+- Chunk sizes are too small for the processing size to compensate for the IO delay
