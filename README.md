@@ -37,7 +37,7 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 
 * Upon streaming
     * A request is made to the server for video meta-data
-    * The server asychronously batch processes video using ytdl-core module
+    * The server asychronously chunk processes video using ytdl-core module
     * Audio data is stored in-memory (heap) and is served using HTTP range request
       Note: The client side work for streaming is automatically done by the http module in the browser
 
@@ -52,9 +52,9 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 * Reduced buffering by 87% by using range requests for streaming.
 * Further reduced buffering to real time by using in-memory cache.
 * Optimized server performance by 22% by asychronous chunk processing.
-    * For batch processing, I decided to use the asychronous approach because as 
+    * For chunk processing, I decided to use the asychronous approach because as 
       node.js is single threaded, parallelism using child processes requires the creation of seperate processes, 
-      which is resource-extensive.   
+      which are resource-extensive.   
 * Enhanced client satisfaction by 80% by building search UI instead of console style UI.
 * Improved user experience by building a chrome extension
     * Chrome extension drastically reduces the number of clicks as the user
@@ -67,7 +67,7 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 * Use message queues.
 * Add unit tests.
 * Add a feature to suggest songs based on user's facial emotion.
-* Test the efficiency of worker threads against asychronous batch processing.
+* Test the efficiency of worker threads against asychronous chunk processing.
 * Improve UI and allow users to select audio quality.
 
 
