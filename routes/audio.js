@@ -1,5 +1,4 @@
 const { Readable } = require('stream');
-const { Response } = require('node-fetch');
 const { Worker } = require('worker_threads');
 const ytdl = require('ytdl-core')
 const express = require('express');
@@ -67,15 +66,17 @@ router.get('/info/:id', (req,res) => {
 router.get('/stream/:id', async (req,res) => { 
 
     let startTime = Date.now()
-
+    
+    //make this async
+    
     if (!(req.params.id in cache)) {
         cache[req.params.id] = { 
-            audioData: await getDataWorker(req.params.id)
+            audioData: await getDataAsyncWorker(req.params.id)
         }
     }
 
     else
-        cache[req.params.id].audioData = await getDataWorker(req.params.id);
+        cache[req.params.id].audioData = await getDataAsyncWorker(req.params.id);
 
     console.log('Time elapsed: ', Date.now() - startTime)
 
@@ -137,86 +138,32 @@ router.get('/stream/:id', async (req,res) => {
     } 
 });
 
+const getDataAsyncWorker = (id) => {
+    const worker = new Worker('./routes/asyncWorker.js');
+    const chunkSize = 1000 * 1024;   //1Mb
+    let numberOfChunks = 1;
 
-const getDataAsync = (id) => {
+    if ((id in cache) && cache[id].contentLength != null)
+        numberOfChunks = Math.ceil((cache[id].contentLength / chunkSize));
+
     return new Promise((resolve, reject) => {
+        worker.postMessage({
+            'id': id,
+            'chunkSize': chunkSize,
+            'numberOfChunks': numberOfChunks
+        });
 
-        let array = [];
-        const chunk = 100 * 1024;   //100kb
-        let numberOfChunks = 1;
-
-        if ( (id in cache) && cache[id].contentLength != null)
-            numberOfChunks = Math.ceil((cache[id].contentLength / chunk));
-    
-        for (let i = 0; i < numberOfChunks; ++i) {
-
-            let startRange = chunk * i;
-            let endRange = chunk * (i+1) - 1;
-
-            if (i == numberOfChunks - 1)        //last chunk
-                endRange = null;    
-                
-            const stream = ytdl('https://www.youtube.com/watch?v='+id, {
-                filter: 'audioonly',
-                quality: 'lowestaudio',
-                range: {start: startRange, end: endRange}
-              })
-    
-            new Response(stream).buffer()
-            .then(buffer => {
-                array[i] = buffer;     //store chunks in their respective positions
-                --numberOfChunks;      //decrement to signal a chunk is processed
-    
-                if (numberOfChunks == 0) {     //all chunks are processed
-                    resolve(Buffer.concat(array));
+        worker.on('message', (buffer) => {
+                if (!buffer) {
+                    console.error('Error in getDataAsyncWorker')
+                    reject(null)
                 }
-            })
-            .catch(err => {
-                console.log('Error in getting buffer\n'+ err);
-                reject(null);
-            })
-        }
+
+                resolve(buffer);           
+        });
     })
- }
+}
 
-
-const getDataWorker = (id) => {
-    return new Promise((resolve, reject) => {
-
-        let array = [];
-        const chunk = 1000 * 1024;   //1MB
-        let numberOfChunks = 1;
-
-        if ( (id in cache) && cache[id].contentLength != null)
-            numberOfChunks = Math.ceil((cache[id].contentLength / chunk));
-    
-        for (let i = 0; i < numberOfChunks; ++i) {
-
-            const worker = new Worker('./routes/worker.js');
-            let startRange = chunk * i;
-            let endRange = chunk * (i+1) - 1;
-
-            if (i == numberOfChunks - 1)        //last chunk
-                endRange = null;    
-
-            worker.postMessage({
-                'id': id,
-                'start': startRange, 
-                'end': endRange
-            });
-
-            worker.on('message', (buffer) => {
-                array[i] = buffer;     //store chunks in their respective positions
-                --numberOfChunks;      //decrement to signal a chunk is processed
-    
-                if (numberOfChunks == 0) {     //all chunks are processed
-                    resolve(Buffer.concat(array));
-                }            
-            });
-
-        }
-    })
- }
 
 
 module.exports = router;

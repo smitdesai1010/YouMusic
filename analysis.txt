@@ -43,3 +43,31 @@ Increased the chunk size for the Worker thread to 1MB
 The processing time required increased, the following may be the reason:
 - Since worker thread use inter-process communication, this could increase the time.
 - Chunk sizes are too small for the processing size to compensate for the IO delay
+
+
+https://stackoverflow.com/questions/25594140/nodejs-im-finding-multithreading-or-using-multiple-processes-is-slower-than-a
+https://stackoverflow.com/questions/60223441/workers-in-javascript-not-so-fast
+https://www.jakso.me/blog/nodejs-14-worker-threads-benchmarks
+
+
+
+The ytdl makes a network IO call. 2 ways of handling it
+- Use an async callback to offload it to the native threadpool
+   - YTLD makes a network call, does some processing and returns data as stream
+   - 
+- Use multithreading to offload it to the worker thread
+
+https://www.freecodecamp.org/news/node-js-what-when-where-why-how-ab8424886e2/
+https://stackoverflow.com/questions/61339571/why-worker-threads-when-we-have-default-worker-pool
+
+
+
+
+AsyncWorker Thread
+==================================
+==================================
+
+- Overall avg is around 1400ms higher by ~300ms
+- But larger songs take less time whereas smaller songs take more time
+- This maybe due to the overhead involved in interthread communication
+- However the event loop remains free as processing is done on the worker thread

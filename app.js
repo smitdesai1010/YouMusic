@@ -15,7 +15,7 @@ corsOption = {
 
 app.use(express.static('public'));
 app.use('/search',search);
-app.use('/audio',cors(corsOption) ,audio)
+app.use('/audio',cors(corsOption),audio)
 // app.use('/emotionDetection',emotionDetection)
 
 app.all('*',(req,res) => {

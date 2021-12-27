@@ -18,7 +18,7 @@ router.get('/:input', (req,res) => {
 
         return response.json();
     })
-    .then( ({items}) => { 
+    .then(({items}) => { 
         if (!items) {
             throw 'Empty response from YouTube Data V3 api';
         }
