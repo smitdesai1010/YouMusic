@@ -1,0 +1,107 @@
+Final Verdict
+==================================
+==================================
+- Node.js is single-threaded 
+   => it uses it's main thread/event loop for all kinds of processing
+
+- However looking deep, Node.js is not so single-threaded
+   => It has a bunch of native C++ threads from the libuv library
+   => These are used for I/O calls, network calls, DNS lookup etc.
+   => So these operations are async, they donot block and occur off the event loop
+   => But we cannot use this libuv threads to execute custom code
+   => Newer versions of Node.js include 3 different modules for parallel processing
+      - Clustering (spunning up new node processes)
+      - Child processes
+      - Worker threads
+   => The first 2 are quite heavy for small data processing, so I went with the later
+
+- YTDL module makes an network and processes the video to convert to audio stream
+
+- Used async and worker threads combined
+   => A new thread is created which is assigned the processing task
+   => Thus keeping the event loop free
+   => The new thread then uses async chunk processing
+      - The data is divided into chunks of 1MB (tried various sizes, 1Mb performed best)
+      - YTDL hence makes n networks calls which are done on in parallel
+      - Then all data is processed on the newly created thread.
+      - All chunks are arranged and concatenated sequentially 
+      - This buffer is then returned to the event loop using message passing.  
+      - Example:
+         - Data-size = 5MB
+         - Number of chunks = 5
+         - So, instead of waiting for 5MB of data to arrive
+         - We wait for 5 1Mb parallel data to arrive
+         - Hence reducing the wait time
+         - Although, all the processing will be done on the single new thread
+         - As libuv threads only executes the network call and not other custom code
+   
+- Conclusion:
+   - This process is a bit slower than async processing on event loop
+      - Maybe due to the overhead involved in creating a new thread, context switching and message passing.
+      - However, the event-loop is now free of processing and can process new requests
+
+
+
+AsyncWorker Thread
+==================================
+==================================
+
+- Overall avg is around 1400ms higher by ~300ms
+- But larger songs take less time whereas smaller songs take more time
+- This maybe due to the overhead involved in message passing
+- However the event loop remains free as processing is done on the worker thread
+
+https://medium.com/@nodesource/understanding-worker-threads-in-node-js-2c854dfd291c
+https://livecodestream.dev/post/how-to-work-with-worker-threads-in-nodejs/
+
+
+
+Duration of song - Time taken to process by server - Video ID
+
+Async chunk processing
+==================================
+==================================
+a) 220 s -  894 ms - kffacxfA7G4 
+b) 379 s - 1132 ms - IjBAgWKW12Y
+c) 138 s -  597 ms - h6aGikIL-I4
+d) 764 s - 1509 ms - U8aghkgeCQ
+e) 320 s -  862 ms - YkIWEmg1m68
+f) 323 s - 1161 ms - Oka69aDkBV4
+g) 251 s - 1606 ms - jHNNMj5bNQw
+h) 232 s -  856 ms - xitd9mEZIHk
+i) 904 s - 2334 ms - 3Yzuoelmjn8
+j) 279 s -  901 ms - HexFqifusOk
+k) 306 s - 1270 ms - caoGNx1LF2Q
+--------------------------------
+   4116 s - 13122 ms 
+
+
+
+
+Worker threads
+==================================
+==================================
+Increased the chunk size for the Worker thread to 1MB
+The processing time required increased, the following may be the reason:
+- Since worker thread use message passing, this could increase the time.
+- Chunk sizes are too small for the processing size to compensate for the IO delay
+
+
+https://stackoverflow.com/questions/25594140/nodejs-im-finding-multithreading-or-using-multiple-processes-is-slower-than-a
+https://stackoverflow.com/questions/60223441/workers-in-javascript-not-so-fast
+https://www.jakso.me/blog/nodejs-14-worker-threads-benchmarks
+
+
+
+The ytdl makes a network call. 2 ways of handling it
+- Use an async callback to offload it to the native threadpool
+   - YTLD makes a network call, does some processing and returns data as stream
+- Use multithreading to offload it to the worker thread
+
+https://www.freecodecamp.org/news/node-js-what-when-where-why-how-ab8424886e2/
+https://stackoverflow.com/questions/61339571/why-worker-threads-when-we-have-default-worker-pool
+
+
+
+
+

@@ -1,0 +1,17 @@
+- Plain webpage with 'Enter ID' option which calls the YouTubeToMP3 api 
+
+- Added UI
+    => Search api and iframe api
+
+- Added streaming support
+    => Built server
+    => Configured range request support
+
+- Added Chrome Extension
+
+- Redesigned the API architecture
+
+- Added in-memory caching
+
+- Added Async worker thread processing support
+

@@ -11,7 +11,7 @@ songs from the internet and were being annoyed by the constant popping ads of Yo
 [Click here](https://github.com/smitdesai1010/YouMusic-ChromeExtension#youmusic-chromeextension) for Chrome extension.
 
 
-![System-Design](System-Design-whimsical.com.png)
+![System-Design](Assets/System-Design-whimsical.com.png)
 
 <details>
     <summary style="cursor:pointer; font-size: 28px; font-weight: bold; font">Screenshots</summary>
