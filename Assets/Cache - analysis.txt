@@ -1,0 +1,38 @@
+Redis
+==================================
+==================================
+- PRO: Redis can be used for storing large amounts of data 
+- CON: Large amount of data transfer may be bottlenecked by network bandwidth
+
+
+
+References: 
+- https://stackoverflow.com/questions/27543134/redis-handling-of-huge-dataset
+- https://stackoverflow.com/questions/17138078/caching-strategy-for-large-datasets-using-redis-on-windows-2008-r2
+
+
+
+
+Redis + filesystem
+==================================
+==================================
+- PRO: Cost can be reduced as Redis will store meta data
+- CON: Reading from disk is slower than from redis
+- PRO: OS caches frequently accessed files
+- PRO: Can update to S3+Cloudfront, so will redirect request to new URL
+       => Reduce server bandwidth
+
+
+
+In-memory
+==================================
+==================================
+- PRO: Faster than redis server
+- CON: Doesn't work easily for distributed systems
+       - Need to make sure that same request hit the same server
+       - So, we can have geospatial caching
+
+
+Points to note: 
+- If Redis server is used, then a network call will required for every read/write
+- It involves socket roundtrips to fetch/store the data

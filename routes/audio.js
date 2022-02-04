@@ -7,7 +7,20 @@ const router = express.Router();
 
 const cache = [];
 
+/*
+[
+    {
+        key: id
+        value: {
+            contentLength: Number,
+            audioData: Uint8Array
+        }
+    }
+]
+*/
+
 router.use((req, res, next) => {
+    // LEFT: check if video exists or not
     const id = req.originalUrl.substr(req.originalUrl.lastIndexOf('/')+1);
 
     if (!/^[a-zA-Z0-9-_]{11}$/.test(id)) {
@@ -20,13 +33,22 @@ router.use((req, res, next) => {
 })
 
 
-router.get('/download/:id', (req,res) => { 
+//check if video already exists
 
+router.get('/download/:id', (req,res) => { 
     res.writeHead(200,{ "Content-Type": "audio/mp3" })     
-    ytdl('https://www.youtube.com/watch?v='+req.params.id, {
-        filter: 'audioonly',
-        quality:'highestaudio'
-    }).pipe(res);
+
+    //check if video already exists
+    if (req.params.id in cache && "audioData" in cache[req.params.id]) {
+        res.write(cache[req.params.id].audioData)
+        res.end()
+    } 
+    else {
+        ytdl('https://www.youtube.com/watch?v='+req.params.id, {
+            filter: 'audioonly',
+            quality:'highestaudio'
+        }).pipe(res)
+    }
 
 });
 
@@ -40,7 +62,8 @@ router.get('/info/:id', (req,res) => {
         }
 
         response.formats.forEach(format => {
-            if (format.itag == 249)  {
+
+            if (format.itag == 251) {   //highest audio format
                 if (!(req.params.id in cache))
                     cache[req.params.id] = {
                         contentLength: format.contentLength
@@ -57,35 +80,49 @@ router.get('/info/:id', (req,res) => {
     })
     .catch(err => {
         res.status(404).send('Unable to fetch info. Please view server logs for more information');
-        console.log('Error in getting video info\n'+err)
+        console.log('Error in getting audio info\n'+err)
     })
 
 });
 
 
-router.get('/stream/:id', async (req,res) => { 
+router.get('/stream/:id', (req,res,next) => {     
+    /*
+        req.params.id doesn't exists 
+                    OR
+        req.params.id exists but doesn't contain audioData (it has only contentLengh)
+    */
+    if (!(req.params.id in cache && "audioData" in cache[req.params.id])) {
 
-    let startTime = Date.now()
-    
-    //make this async
-    
-    if (!(req.params.id in cache)) {
-        cache[req.params.id] = { 
-            audioData: await getDataAsyncWorker(req.params.id)
+        if (!(req.params.id in cache)) {    //object doesn't exists 
+            cache[req.params.id] = {}
         }
+
+        getDataAsyncWorker(req.params.id)
+        .then(bufferData => {
+
+            if (bufferData == null) {
+                throw 'bufferData is null';  //put a good error message
+            }
+
+            cache[req.params.id].audioData = bufferData;
+            cache[req.params.id].contentLength = bufferData.length;
+            next();
+        })
+        .catch(error => {
+            console.log('Error in getting audio: ',error)
+            res.status(404).send('Unable to stream, Please view server logs for more details');
+        })
     }
 
-    else
-        cache[req.params.id].audioData = await getDataAsyncWorker(req.params.id);
+    else {      //already exists in cache
+        next()
+    }
+ 
+});
 
-    console.log('Time elapsed: ', Date.now() - startTime)
 
-    if (cache[req.params.id].audioData == null) {
-        res.status(404).send('Unable to stream');
-        return;
-    }    
-    //https://stackoverflow.com/questions/42227944/err-content-length-mismatch-when-loading-video-in-chrome
-
+router.get('/stream/:id', (req,res,) => { 
     const size = cache[req.params.id].audioData.length
     const range = req.headers.range;
     
@@ -138,12 +175,14 @@ router.get('/stream/:id', async (req,res) => {
     } 
 });
 
+
+
 const getDataAsyncWorker = (id) => {
     const worker = new Worker('./routes/asyncWorker.js');
     const chunkSize = 1000 * 1024;   //1Mb
-    let numberOfChunks = 1;
+    let numberOfChunks = 1;    //default number of chunks
 
-    if ((id in cache) && cache[id].contentLength != null)
+    if ((id in cache) && cache[id].contentLength != null)   //if contentlength is present, calculate the number of chunks
         numberOfChunks = Math.ceil((cache[id].contentLength / chunkSize));
 
     return new Promise((resolve, reject) => {
@@ -153,17 +192,32 @@ const getDataAsyncWorker = (id) => {
             'numberOfChunks': numberOfChunks
         });
 
-        worker.on('message', (buffer) => {
-                if (!buffer) {
-                    console.error('Error in getDataAsyncWorker')
-                    reject(null)
-                }
+        /*
+            What if some other worker thread returns a different chunk ?
+        */
 
-                resolve(buffer);           
+        worker.on('message', (buffer) => {
+            if (!buffer) {
+                console.error('Error in getDataAsyncWorker')
+                reject(null)
+            }
+
+            resolve(buffer);           
         });
     })
 }
 
+//check if video exists or not
 
+/*
+Things learnt:
+    Make api's independent of frontend
+    For example: frontend will only send api's with valid id 
+                 but what if someone calls the api manually with invalid api
+*/
 
 module.exports = router;
+
+
+
+//https://stackoverflow.com/questions/42227944/err-content-length-mismatch-when-loading-video-in-chrome

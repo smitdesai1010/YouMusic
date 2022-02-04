@@ -9,7 +9,6 @@ parentPort.on('message', (data) => {
     let array = [];
 
     for (let i = 0; i < numberOfChunks; ++i) {
-
         let startRange = chunkSize * i;
         let endRange = chunkSize * (i+1) - 1;
 
